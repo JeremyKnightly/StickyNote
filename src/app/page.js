@@ -4,16 +4,14 @@ import { useEffect, useState } from "react";
 import NoteList from "./components/NoteList";
 import SearchBar from "./components/SearchBar";
 import Header from "./components/Header";
+import { nanoid } from "nanoid";
 
 
 export default function Home() {
   const [isDarkMode, setIsDarkMode] = useState(false);
   const [searchParam, setSearchParam] = useState("");
-  const [notes, setNotes] = useState(
-    localStorage.getItem('react-sticky-notes-app-data') ? 
-    JSON.parse(localStorage.getItem('react-sticky-notes-app-data')) 
-    : []
-  );
+  //const [localStorage, setLocalStorage] = useState();
+  const [notes, setNotes] = useState([]);
 
   function addNote(text) {
     const date = new Date();
