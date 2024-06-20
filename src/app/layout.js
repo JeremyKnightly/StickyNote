@@ -12,6 +12,9 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
+      <head>
+        <title>Stickynote App</title>
+      </head>
       <body className={inter.className}>
         {children}
         <Analytics />
