@@ -1,5 +1,6 @@
 "use client"
 
+import { nanoid } from "nanoid";
 import { useEffect, useState } from "react";
 import NoteList from "./components/NoteList";
 import SearchBar from "./components/SearchBar";
