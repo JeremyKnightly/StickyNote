@@ -1,17 +1,21 @@
 "use client"
 
+import { nanoid } from "nanoId";
 import { useEffect, useState } from "react";
 import NoteList from "./components/NoteList";
 import SearchBar from "./components/SearchBar";
 import Header from "./components/Header";
-import { nanoid } from "nanoid";
 
 
 export default function Home() {
   const [isDarkMode, setIsDarkMode] = useState(false);
   const [searchParam, setSearchParam] = useState("");
-  //const [localStorage, setLocalStorage] = useState();
-  const [notes, setNotes] = useState([]);
+  const localStorage = typeof window !== "undefined" ? window.localStorage : null;
+  const [notes, setNotes] = useState(
+    localStorage.getItem('react-sticky-notes-app-data') ? 
+    JSON.parse(localStorage.getItem('react-sticky-notes-app-data')) 
+    : []
+  );
 
   function addNote(text) {
     const date = new Date();
@@ -36,29 +40,11 @@ export default function Home() {
     addNote(text);
   }
 
-
-
-  useEffect(() =>{
-    console.log(JSON.stringify(notes));
-
-      const savedNotes = JSON.parse(
-        localStorage.getItem('react-sticky-notes-app-data')
-      );
-
-      if (savedNotes) {
-        console.log("load successful:" + JSON.stringify(savedNotes));
-        setNotes(savedNotes);
-      }
-
-  },[]);
-
   useEffect(() => {
-    console.log("load successful:" + JSON.stringify(notes));
     localStorage.setItem(
       'react-sticky-notes-app-data', 
       JSON.stringify(notes)
     );
-    console.log("Save successful:" + JSON.stringify(notes));
   },[notes]);
 
   return (
