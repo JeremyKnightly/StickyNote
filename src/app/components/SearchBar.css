@@ -1,0 +1,21 @@
+.searchBar {
+    align-content: center;
+    resize: none;
+    background-color: inherit;
+    width: 80%;
+}
+
+.searchBar:focus {
+    outline: none;
+}
+
+.searchContainer {
+    display: flex;
+    margin-bottom: 1em;
+    gap: 5px;
+    padding:5px;
+    align-items: center;
+    border-radius: 18px;
+    background-color: rgb(218, 216, 216);
+    border: 2px gray solid;
+}

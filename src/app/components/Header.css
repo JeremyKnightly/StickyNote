@@ -1,0 +1,18 @@
+.header{
+    padding:2rem;
+    font-size: 300%;
+}
+
+.toggleButton {
+    border-radius: 12px;
+    padding-right: .3em;
+    padding-left: .3em;
+    background-color: rgb(218, 216, 216);
+    max-height: 25px;
+}
+
+.headHolder {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}

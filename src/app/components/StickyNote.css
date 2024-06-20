@@ -1,0 +1,40 @@
+.stickyNote{
+    display:flex;
+    font-size: small;
+    flex-direction: column;
+    min-height: 175px;
+    min-width: 50px;
+    background-color: rgb(247, 247, 148);
+    border: 2px gray solid;
+    max-width: 225px;
+    padding: 1rem;
+    margin: 15px;
+    justify-content: space-between;
+    border-radius: 4px;
+    white-space: pre-wrap;
+}
+
+.blue {
+    background-color: aquamarine;
+}
+
+.inputArea{
+    resize: none;
+    border: none;
+}
+
+.inputArea:focus {
+    outline: none;
+}
+
+.footer {
+    padding: 10px;
+    align-items: center;    
+    justify-content: space-between;
+    display: flex;
+    flex-direction: row;
+}
+
+.content{
+    text-wrap: wrap;
+}
