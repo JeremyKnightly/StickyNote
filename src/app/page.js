@@ -4,7 +4,6 @@ import { useEffect, useState } from "react";
 import NoteList from "./components/NoteList";
 import SearchBar from "./components/SearchBar";
 import Header from "./components/Header";
-import { Analytics } from "@vercel/analytics/react";
 
 
 export default function Home() {
@@ -49,7 +48,6 @@ export default function Home() {
 
   return (
     <div className={`${isDarkMode && "darkMode"}`}> 
-      <Analytics />
       <div className="container">
         <Header isDarkMode={setIsDarkMode}/>
         <SearchBar searchParam={setSearchParam}/>
