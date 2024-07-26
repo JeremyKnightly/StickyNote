@@ -12,15 +12,15 @@ export default function StickyNote ( {index, text, date, complete, handleDelete,
 
     return (<div className="stickyNote">
         <div className="complete">
-            <p>Completed: {complete}</p>
+            <p>Completed{complete}</p>
             {complete ?
             <FiCheckSquare className="clickable" onClick={()=>handleComplete(index)} size='1.3em'/>:
             <MdOutlineCheckBoxOutlineBlank className="clickable" onClick={()=>handleComplete(index)} size='1.4em'/>
             }
         </div>
         {complete ? 
-        <p className="content">{ text }</p>:
-        <p className="content strikethrough">{ text }</p>
+        <p className="content strikeThrough">{ text }</p>:
+        <p className="content">{ text }</p>
         }
         <div className="footer">
             <small className="info">{ date }</small>
