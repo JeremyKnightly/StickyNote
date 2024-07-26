@@ -7,7 +7,6 @@ import Header from "./components/Header";
 import { nanoid } from "nanoid";
 import { jsPDF } from "jspdf";
 
-
 export default function Home() {
   const [isDarkMode, setIsDarkMode] = useState(false);
   const [searchParam, setSearchParam] = useState("");
@@ -54,6 +53,7 @@ export default function Home() {
       const margin = 15;
       const lineHeight = 12;
       const pageHeight = doc.internal.pageSize.height-margin*2;
+      const pageWidth = doc.internal.pageSize.width-margin*2;
       let yStart = margin;
 
       if (yStart + margin>pageHeight){
@@ -63,7 +63,7 @@ export default function Home() {
 
       // Add notes to the PDF
       notes.forEach((note,index) => {
-        doc.text(stringifyNote(note), 15, yStart);
+        yStart = formatTextWrap(doc, lineHeight, stringifyNote(note), margin, yStart, pageWidth);
         yStart += lineHeight*2;
       });
 
@@ -76,6 +76,16 @@ export default function Home() {
 
   function stringifyNote(note) {
     return `--${note.date}--  ${note.text}  ${note.complete ? "--Completed--": "--Incomplete--"}`;
+  }
+
+  function formatTextWrap(doc, lineHeight, text, x, y, pageWidth){
+    const lines = doc.splitTextToSize(text,pageWidth);
+    let finalRow = 0;
+    lines.forEach((line,index) => {
+      finalRow = y+index*lineHeight;
+      doc.text(line,x,y+index*lineHeight);
+    });
+    return finalRow;
   }
 
   function handlePrintWindow(doc){
@@ -95,16 +105,15 @@ export default function Home() {
   async function printNote (index) {
     try{
       const doc = new jsPDF();
+      const lineHeight = 12;
       const margin = 15;
+      const pageWidth = doc.internal.pageSize.width-margin*2;
 
       // Add note to the PDF
-      notes.forEach((note) => {
-        if (note.index === index){
-          console.log("note found.");
-          doc.text(stringifyNote(note), 15, margin);
-        }
-        console.log("note checked");
-      });
+      const note = notes.find((note) => note.index === index);
+      if (note) {
+        formatTextWrap(doc, lineHeight, stringifyNote(note), margin, margin, pageWidth);
+      }
 
       handlePrintWindow(doc);
     } catch (error) {
