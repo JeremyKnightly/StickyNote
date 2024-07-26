@@ -48,7 +48,7 @@ export default function Home() {
     addNote(text);
   }
 
-  async function printAll () {
+  async function printAllNotes () {
     try{
       const doc = new jsPDF();
       const margin = 15;
@@ -61,27 +61,52 @@ export default function Home() {
         yStart = margin;
       }
 
-
-      // Add content to the PDF
+      // Add notes to the PDF
       notes.forEach((note,index) => {
-        doc.text(`--${note.date}--  ${note.text}  ${note.complete ? "--Completed--": "--Incomplete--"}\n\n`, 15, yStart);
-        yStart += lineHeight;
+        doc.text(stringifyNote(note), 15, yStart);
+        yStart += lineHeight*2;
       });
 
-      const pdfBlob = doc.output('blob');
+      handlePrintWindow(doc);
 
-      const pdfUrl = URL.createObjectURL(pdfBlob);
+    } catch (error) {
+      console.error("Error generating PDF:", error);
+    }
+  }
 
+  function stringifyNote(note) {
+    return `--${note.date}--  ${note.text}  ${note.complete ? "--Completed--": "--Incomplete--"}`;
+  }
 
-      // Save the PDF and open it in a new window for printing
-      //const pdfDataUri = doc.output('datauristring');
-      const printWindow = window.open(pdfUrl, '_blank');
-      if (printWindow) {
-        printWindow.onload = () => {
-          printWindow.print();
-          URL.revokeObjectURL(pdfUrl);
-        };
-      }
+  function handlePrintWindow(doc){
+    const pdfBlob = doc.output('blob');
+
+    const pdfUrl = URL.createObjectURL(pdfBlob);
+
+    const printWindow = window.open(pdfUrl, '_blank');
+    if (printWindow) {
+      printWindow.onload = () => {
+        printWindow.print();
+        URL.revokeObjectURL(pdfUrl);
+      };
+    }
+  }
+  
+  async function printNote (index) {
+    try{
+      const doc = new jsPDF();
+      const margin = 15;
+
+      // Add note to the PDF
+      notes.forEach((note) => {
+        if (note.index === index){
+          console.log("note found.");
+          doc.text(stringifyNote(note), 15, margin);
+        }
+        console.log("note checked");
+      });
+
+      handlePrintWindow(doc);
     } catch (error) {
       console.error("Error generating PDF:", error);
     }
@@ -114,13 +139,14 @@ export default function Home() {
   return (
     <div className={`${isDarkMode && "darkMode"}`}> 
       <div className="container">
-        <Header isDarkMode={setIsDarkMode} handlePrintAll={printAll}/>
+        <Header isDarkMode={setIsDarkMode} handlePrintAll={printAllNotes}/>
         <SearchBar searchParam={setSearchParam}/>
         <NoteList 
           notes={notes.filter((note)=>note.text.toUpperCase().includes(searchParam.toUpperCase()))} 
           handleSave={saveNote} 
           handleDelete={deleteNote}
           handleComplete={completeNote}
+          handlePrint={printNote}
         />
       </div>
     </div>

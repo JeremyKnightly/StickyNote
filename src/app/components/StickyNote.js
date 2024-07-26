@@ -8,14 +8,14 @@ import { MdPrint } from "react-icons/md";
 
 
 
-export default function StickyNote ( {index, text, date, complete, handleDelete, handleComplete} ) {
+export default function StickyNote ( {index, text, date, complete, handleDelete, handleComplete, handlePrint} ) {
     
 
 
     return (<div className="stickyNote">
         <div className="noteHead">
             <div>
-                <MdPrint className="clickable" size='1.2em'/>
+                <MdPrint className="clickable" size='1.2em' onClick={() => handlePrint(index)}/>
             </div>
             <div className="complete">
                 <p>Completed{complete}</p>

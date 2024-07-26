@@ -3,7 +3,7 @@ import StickyNote from "./StickyNote"
 import NoteAdd from "./NoteAdd";
 import { handleClientScriptLoad } from "next/script";
 
-export default function NoteList ({notes, handleSave, handleDelete, handleComplete}) {
+export default function NoteList ({notes, handleSave, handleDelete, handleComplete, handlePrint}) {
 
     return <div className="noteList">
         <NoteAdd handleSave={handleSave}/>
@@ -16,6 +16,7 @@ export default function NoteList ({notes, handleSave, handleDelete, handleComple
                 complete={note.complete}
                 handleDelete={handleDelete}
                 handleComplete={handleComplete}
+                handlePrint={handlePrint}
             />;
         })}
     </div>
