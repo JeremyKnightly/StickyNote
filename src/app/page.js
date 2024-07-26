@@ -21,6 +21,7 @@ export default function Home() {
       key: id,
       text: text,
       date: date.toLocaleDateString(),
+      complete: false,
       }
       ,...notes
       ];
@@ -30,6 +31,16 @@ export default function Home() {
   function deleteNote (index) {
     const newNotes = notes.filter((note) => note.index !== index);
     setNotes(newNotes);
+  }
+
+  function completeNote (index) {
+    const modifiedNotes = notes.map((note) => 
+      note.index === index ? 
+      {...note, complete: !note.complete}:
+      note
+    );
+
+    setNotes(modifiedNotes);
   }
 
   function saveNote (text) {
@@ -70,6 +81,7 @@ export default function Home() {
           notes={notes.filter((note)=>note.text.toUpperCase().includes(searchParam.toUpperCase()))} 
           handleSave={saveNote} 
           handleDelete={deleteNote}
+          handleComplete={completeNote}
         />
       </div>
     </div>

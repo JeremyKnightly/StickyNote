@@ -13,6 +13,14 @@
     border-radius: 4px;
     white-space: pre-wrap;
 }
+.complete {
+    display: flex;
+    flex-direction: row;
+    align-self: self-end;
+    font-size: smaller;
+    max-height: 2em;
+    gap: 5px;
+}
 
 .blue {
     background-color: aquamarine;
@@ -35,6 +43,15 @@
     flex-direction: row;
 }
 
-.content{
+.content {
     text-wrap: wrap;
+    height: 100%;
+}
+
+.clickable:hover {
+    cursor: pointer;    
+}
+
+.strikeThrough {
+    text-decoration: line-through;
 }
