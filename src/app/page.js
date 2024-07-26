@@ -47,6 +47,12 @@ export default function Home() {
     addNote(text);
   }
 
+  function printAll () {
+    console.log("------------PRINTING---------------");
+    notes.forEach((note) => 
+      console.log(`${note.date}  ${note.text}  ${note.complete ? "Completed": "Incomplete"}`)
+    );
+  }
 
 
   useEffect(() =>{
@@ -75,7 +81,7 @@ export default function Home() {
   return (
     <div className={`${isDarkMode && "darkMode"}`}> 
       <div className="container">
-        <Header isDarkMode={setIsDarkMode}/>
+        <Header isDarkMode={setIsDarkMode} handlePrintAll={printAll}/>
         <SearchBar searchParam={setSearchParam}/>
         <NoteList 
           notes={notes.filter((note)=>note.text.toUpperCase().includes(searchParam.toUpperCase()))} 

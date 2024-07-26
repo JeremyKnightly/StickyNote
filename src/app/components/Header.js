@@ -1,15 +1,20 @@
 import React from "react"
 import "./Header.css"
 
-export default function Header({isDarkMode}) {
+export default function Header({isDarkMode,handlePrintAll}) {
 
     return (<div className="headHolder">
         <h1 className="header">StickyNotes™</h1>
-        <button 
-        className="toggleButton" 
-        onClick={
-            ()=>isDarkMode( 
-                (previousDarkMode)=>(!previousDarkMode)
-            )}>Toggle Dark Mode</button>
+        <div className="buttonHolder">
+            <button 
+            className="toggleButton" 
+            onClick={handlePrintAll}>Print All</button>
+            <button 
+            className="toggleButton" 
+            onClick={
+                ()=>isDarkMode( 
+                    (previousDarkMode)=>(!previousDarkMode)
+                )}>Toggle Dark Mode</button>
+        </div>
     </div>);
 }

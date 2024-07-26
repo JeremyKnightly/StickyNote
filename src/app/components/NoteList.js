@@ -7,7 +7,6 @@ export default function NoteList ({notes, handleSave, handleDelete, handleComple
 
     return <div className="noteList">
         <NoteAdd handleSave={handleSave}/>
-        <p>{notes.note}</p>
         {notes.map((note) => {
             return <StickyNote 
                 key={note.index}
