@@ -8,7 +8,7 @@ export default function Header({isDarkMode,handlePrintAll}) {
         <div className="buttonHolder">
             <button 
             className="toggleButton" 
-            onClick={handlePrintAll}>Print All</button>
+            onClick={handlePrintAll}>Print PDF</button>
             <button 
             className="toggleButton" 
             onClick={

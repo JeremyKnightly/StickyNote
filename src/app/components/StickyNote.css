@@ -16,7 +16,6 @@
 .complete {
     display: flex;
     flex-direction: row;
-    align-self: self-end;
     font-size: smaller;
     max-height: 2em;
     gap: 5px;
@@ -54,4 +53,12 @@
 
 .strikeThrough {
     text-decoration: line-through;
+    justify-items:right;
+}
+
+.noteHead {
+    padding:5px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }

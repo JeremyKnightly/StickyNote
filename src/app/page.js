@@ -5,6 +5,7 @@ import NoteList from "./components/NoteList";
 import SearchBar from "./components/SearchBar";
 import Header from "./components/Header";
 import { nanoid } from "nanoid";
+import { jsPDF } from "jspdf";
 
 
 export default function Home() {
@@ -47,11 +48,43 @@ export default function Home() {
     addNote(text);
   }
 
-  function printAll () {
-    console.log("------------PRINTING---------------");
-    notes.forEach((note) => 
-      console.log(`${note.date}  ${note.text}  ${note.complete ? "Completed": "Incomplete"}`)
-    );
+  async function printAll () {
+    try{
+      const doc = new jsPDF();
+      const margin = 15;
+      const lineHeight = 12;
+      const pageHeight = doc.internal.pageSize.height-margin*2;
+      let yStart = margin;
+
+      if (yStart + margin>pageHeight){
+        doc.addPage();
+        yStart = margin;
+      }
+
+
+      // Add content to the PDF
+      notes.forEach((note,index) => {
+        doc.text(`--${note.date}--  ${note.text}  ${note.complete ? "--Completed--": "--Incomplete--"}\n\n`, 15, yStart);
+        yStart += lineHeight;
+      });
+
+      const pdfBlob = doc.output('blob');
+
+      const pdfUrl = URL.createObjectURL(pdfBlob);
+
+
+      // Save the PDF and open it in a new window for printing
+      //const pdfDataUri = doc.output('datauristring');
+      const printWindow = window.open(pdfUrl, '_blank');
+      if (printWindow) {
+        printWindow.onload = () => {
+          printWindow.print();
+          URL.revokeObjectURL(pdfUrl);
+        };
+      }
+    } catch (error) {
+      console.error("Error generating PDF:", error);
+    }
   }
 
 
